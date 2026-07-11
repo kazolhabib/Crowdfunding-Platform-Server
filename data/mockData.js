@@ -1,0 +1,136 @@
+const campaigns = [
+  {
+    _id: "1",
+    title: "NeoVolt — Next-Gen Portable Solar Charger",
+    description:
+      "A foldable, ultra-lightweight solar charger that powers any USB-C device in minutes. Built for adventurers and eco-conscious creators.",
+    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=400&fit=crop",
+    category: "Technology",
+    goal: 50000,
+    raised: 47250,
+    backers: 1834,
+    daysLeft: 12,
+    creator: "Elena Vasquez",
+    featured: true,
+  },
+  {
+    _id: "2",
+    title: "Lumière — Handcrafted Ceramic Lamp Collection",
+    description:
+      "Artisan-made ceramic lamps inspired by Mediterranean coastlines. Each piece is unique, blending modern aesthetics with timeless craft.",
+    image: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=600&h=400&fit=crop",
+    category: "Art & Design",
+    goal: 25000,
+    raised: 23100,
+    backers: 892,
+    daysLeft: 8,
+    creator: "Marco Bellini",
+    featured: true,
+  },
+  {
+    _id: "3",
+    title: "Echoes — An Indie Atmospheric Adventure Game",
+    description:
+      "Explore a hauntingly beautiful world shaped by sound. Echoes is a narrative-driven game where your voice changes the environment.",
+    image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=600&h=400&fit=crop",
+    category: "Games",
+    goal: 80000,
+    raised: 72400,
+    backers: 3201,
+    daysLeft: 18,
+    creator: "Studio Resonance",
+    featured: true,
+  },
+  {
+    _id: "4",
+    title: "BrewCraft — Smart Home Coffee Roaster",
+    description:
+      "Roast specialty-grade coffee beans at home with AI-guided precision. BrewCraft learns your taste and perfects every batch.",
+    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop",
+    category: "Food & Craft",
+    goal: 35000,
+    raised: 31500,
+    backers: 1245,
+    daysLeft: 5,
+    creator: "Anika Patel",
+    featured: true,
+  },
+  {
+    _id: "5",
+    title: "Wavelength — Documentary on Ocean Conservation",
+    description:
+      "A cinematic deep-dive into the fight to save our oceans. Following marine biologists across 5 continents over 2 years.",
+    image: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=600&h=400&fit=crop",
+    category: "Film",
+    goal: 60000,
+    raised: 54800,
+    backers: 2150,
+    daysLeft: 22,
+    creator: "Oceanic Films",
+    featured: true,
+  },
+  {
+    _id: "6",
+    title: "Melodica — AI-Powered Music Learning Platform",
+    description:
+      "Learn any instrument through adaptive AI lessons that adjust to your skill level. From beginner to virtuoso, at your own pace.",
+    image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&h=400&fit=crop",
+    category: "Music & Education",
+    goal: 45000,
+    raised: 38700,
+    backers: 1678,
+    daysLeft: 15,
+    creator: "SoundBridge Labs",
+    featured: true,
+  },
+];
+
+const testimonials = [
+  {
+    _id: "t1",
+    name: "Sarah Chen",
+    role: "Campaign Creator",
+    quote:
+      "FundVerse helped me raise $120K for my startup in just 30 days. The platform is intuitive, the community is incredible, and the support team was with me every step of the way.",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
+    rating: 5,
+  },
+  {
+    _id: "t2",
+    name: "James Rodriguez",
+    role: "Serial Backer",
+    quote:
+      "I've backed over 50 projects on FundVerse. The quality of campaigns here is unmatched — every project feels carefully vetted and genuinely innovative.",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+    rating: 5,
+  },
+  {
+    _id: "t3",
+    name: "Priya Sharma",
+    role: "Tech Entrepreneur",
+    quote:
+      "The analytics dashboard gave me real-time insights into my campaign performance. I could see exactly where backers were coming from and optimize accordingly.",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+    rating: 5,
+  },
+  {
+    _id: "t4",
+    name: "David Kim",
+    role: "Indie Game Developer",
+    quote:
+      "As a solo developer, FundVerse gave me not just funding, but a community of passionate gamers who believed in my vision before anyone else did.",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
+    rating: 5,
+  },
+  {
+    _id: "t5",
+    name: "Amara Osei",
+    role: "Documentary Filmmaker",
+    quote:
+      "Traditional funding rejected my film idea twice. FundVerse backers not only funded it — they became our biggest advocates and helped us win at Sundance.",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face",
+    rating: 5,
+  },
+];
+
+module.exports = { campaigns, testimonials };
