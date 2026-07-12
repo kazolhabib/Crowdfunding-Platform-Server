@@ -6,20 +6,35 @@ dotenv.config();
 
 const campaignRoutes = require("./routes/campaignRoutes");
 const authRoutes = require("./routes/authRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
+const { handleStripeWebhook } = require("./routes/paymentRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+
+app.use(
+  cors({
+    origin: frontendUrl,
+    credentials: true,
+  })
+);
+
+// Stripe webhook must receive raw body
+app.post(
+  "/api/payments/webhook",
+  express.raw({ type: "application/json" }),
+  handleStripeWebhook
+);
+
 app.use(express.json());
 
-// Routes
 app.use("/api/campaigns", campaignRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/payments", paymentRoutes);
 
-// Health check
-app.get("/api/health", (req, res) => {
+app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", message: "Crowdfunding Platform API is running" });
 });
 
