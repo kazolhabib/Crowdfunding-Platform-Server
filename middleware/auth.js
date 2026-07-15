@@ -25,4 +25,11 @@ function supporterOnly(req, res, next) {
   next();
 }
 
-module.exports = { authMiddleware, supporterOnly };
+function creatorOnly(req, res, next) {
+  if (req.user.role !== "Creator") {
+    return res.status(403).json({ success: false, error: "Only creators are allowed." });
+  }
+  next();
+}
+
+module.exports = { authMiddleware, supporterOnly, creatorOnly };
