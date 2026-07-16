@@ -192,9 +192,9 @@ router.put("/contributions", authMiddleware, creatorOnly, async (req, res) => {
       });
 
       await createNotification({
-        message: `Your contribution of ${contribution.contribution_amount} credits to "${contribution.campaign_title}" has been approved!`,
+        message: `Your Contribution of ${contribution.contribution_amount} credits to ${contribution.campaign_title} was approved by ${contribution.creator_name}`,
         toEmail: contribution.supporter_email,
-        actionRoute: "/dashboard/my-contributions",
+        actionRoute: "/dashboard/Supporter-home",
       });
 
       res.json({ success: true, message: "Contribution approved." });
@@ -209,9 +209,9 @@ router.put("/contributions", authMiddleware, creatorOnly, async (req, res) => {
       );
 
       await createNotification({
-        message: `Your contribution of ${contribution.contribution_amount} credits to "${contribution.campaign_title}" was rejected. Credits have been refunded.`,
+        message: `Your Contribution of ${contribution.contribution_amount} credits to ${contribution.campaign_title} was rejected by ${contribution.creator_name}`,
         toEmail: contribution.supporter_email,
-        actionRoute: "/dashboard/my-contributions",
+        actionRoute: "/dashboard/Supporter-home",
       });
 
       res.json({ success: true, message: "Contribution rejected and refunded." });
