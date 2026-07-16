@@ -1,3 +1,8 @@
+/**
+ * @file index.js
+ * @description Main entry point for the Crowdfunding Platform companion API server.
+ */
+
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
