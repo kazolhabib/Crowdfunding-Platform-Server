@@ -1,3 +1,8 @@
+/**
+ * @file supporterRoutes.js
+ * @description API routes for supporter actions including fetching contribution statistics and histories.
+ */
+
 const express = require("express");
 const connectDB = require("../config/db");
 const Contribution = require("../models/Contribution");
