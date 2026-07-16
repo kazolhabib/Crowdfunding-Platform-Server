@@ -8,6 +8,7 @@ const campaignRoutes = require("./routes/campaignRoutes");
 const authRoutes = require("./routes/authRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const creatorRoutes = require("./routes/creatorRoutes");
+const supporterRoutes = require("./routes/supporterRoutes");
 const { handleStripeWebhook } = require("./routes/paymentRoutes");
 
 const app = express();
@@ -35,6 +36,7 @@ app.use("/api/campaigns", campaignRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/creator", creatorRoutes);
+app.use("/api/supporter", supporterRoutes);
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", message: "Crowdfunding Platform API is running" });
