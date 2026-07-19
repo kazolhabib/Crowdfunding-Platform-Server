@@ -53,7 +53,7 @@ router.post("/create-checkout-session", authMiddleware, supporterOnly, async (re
 
     try {
       const stripe = getStripe();
-      const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+      const frontendUrl = (process.env.FRONTEND_URL || "http://localhost:3000").replace(/\/+$/, "");
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -96,7 +96,7 @@ router.post("/create-checkout-session", authMiddleware, supporterOnly, async (re
       console.warn("Stripe failed, falling back to mock payment system:", stripeError.message);
       
       const mockSessionId = `mock_session_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-      const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+      const frontendUrl = (process.env.FRONTEND_URL || "http://localhost:3000").replace(/\/+$/, "");
 
       await Payment.create({
         user_email: user.email,
