@@ -1,70 +1,87 @@
-# FundFlow Server - Crowdfunding Platform API
+# FundFlow Server — Crowdfunding Platform API ⚙️
 
-FundFlow Server is the Express and MongoDB-based companion API server that powers FundFlow, a role-based crowdfunding platform. It handles database operations, Stripe checkout sessions, withdrawal requests, in-app notifications, and supporter contributions.
+[![Node.js](https://img.shields.io/badge/Node.js-v20.x-green?style=for-the-badge&logo=node.js)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-v5-black?style=for-the-badge&logo=express)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb)](https://mongodb.com/)
+[![Mongoose](https://img.shields.io/badge/Mongoose-Modeling-red?style=for-the-badge)](https://mongoosejs.com/)
+[![Render](https://img.shields.io/badge/Render-Deployed-46E3B7?style=for-the-badge&logo=render)](https://render.com/)
 
-## Technical Stack
+**FundFlow Server** is the companion API server that powers the FundFlow Crowdfunding Platform. It handles MongoDB database modeling, security tokens, user authentication, role-based middleware routing, Stripe payment sessions, webhook event processing, and administrative payout workflows.
+
+---
+
+## 📝 Project Submission Details
+
+* **Website Name:** FundFlow
+* **Backend Live Server Link:** [https://crowdfunding-platform-server.onrender.com](https://crowdfunding-platform-server.onrender.com)
+* **Client-Side GitHub Repository:** [https://github.com/kazolhabib/Crowdfunding-Platform](https://github.com/kazolhabib/Crowdfunding-Platform)
+* **Server-Side GitHub Repository:** [https://github.com/kazolhabib/Crowdfunding-Platform-Server](https://github.com/kazolhabib/Crowdfunding-Platform-Server)
+
+---
+
+## 🛠️ Technology Stack
+
 * **Runtime Environment:** Node.js
 * **Backend Framework:** Express.js (v5)
-* **Database & Modeling:** MongoDB & Mongoose
-* **Security & Tokens:** JSON Web Tokens (jsonwebtoken), bcryptjs
-* **Payments Integration:** Stripe API (with fallback mock checkout system for local testing and development)
+* **Database & modeling:** MongoDB & Mongoose ORM
+* **Security & Authentication:** JSON Web Tokens (JWT) & bcryptjs
+* **Payments Integration:** Stripe SDK (Checkout Sessions, Webhook Verification)
 
-## Environment Setup
-Create a `.env` file in the root of the server directory:
+---
+
+## 🗃️ Database Schema Models (`/models`)
+
+* **User (`User.js`):** Manages user registration records, role assignments (`Admin`/`Creator`/`Supporter`), available credits, and hashed password states.
+* **Campaign (`Campaign.js`):** Stores title, category, target funding credits, deadline, status (`pending`/`approved`/`rejected`), and total raised amount.
+* **Contribution (`Contribution.js`):** Logs supporter backing amounts, transaction states, and references back to campaigns and creators.
+* **Withdrawal (`Withdrawal.js`):** Track creator payout requests (calculating payouts at a rate of 20 credits = $1 USD).
+* **Notification (`Notification.js`):** Handles floating real-time user notification logs.
+* **Report (`Report.js`):** Stores flagged campaigns submitted by supporters for administrative investigations.
+
+---
+
+## 🛡️ Middleware Routings (`/middleware`)
+
+* `authMiddleware`: Parses authorization headers and validates JWT payloads to attach authenticated user entities.
+* `supporterOnly`: Gates endpoints to restrict supporter actions (such as initiating Stripe checkout sessions).
+* `creatorOnly`: Restricts access to creator routes (such as requesting USD withdrawals).
+* `adminOnly`: Secures sensitive routes (like user management and report resolutions) for administrative credentials.
+
+---
+
+## ⚙️ Environment Configurations
+
+Create a `.env` file in the root directory:
 ```env
-PORT=5000
-MONGODB_URI=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/your_db
-JWT_SECRET=fundflow-super-secret-key-change-me-in-production
-FRONTEND_URL=http://localhost:3000
+PORT=5001
+MONGODB_URI=your_mongodb_cluster_connection_string
+JWT_SECRET=your_jwt_token_signing_secret
+FRONTEND_URL=https://crowdfunding-platform-pha.netlify.app
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 ```
 
-## Demo Credentials (Seeded)
-Use the following accounts to test role-based access:
-* **Administrator:** `admin@demo.com` / `password123`
-* **Supporter:** `supporter@demo.com` / `password123`
-* **Creator:** `creator@demo.com` / `password123`
+---
 
-## Key Architecture & Features
+## 🚀 Getting Started
 
-### 1. Database Schema Models (`/models`)
-* **User:** Holds profile details, hashed passwords, roles (`Admin`/`Creator`/`Supporter`), and available credits.
-* **Campaign:** Manages title, description, category, deadline, funding goals, and total raised credits.
-* **Contribution:** Track supporter pledges, amount, and approval status (`pending`/`approved`/`rejected`).
-* **Withdrawal:** Handles Creator payouts (converted at 20 credits = $1 USD).
-* **Notification:** Stores in-app alerts displayed dynamically to logged-in users.
-* **Report:** Tracks suspicious campaign reports submitted by supporters.
+### 1. Install Dependencies
+```bash
+git clone https://github.com/kazolhabib/Crowdfunding-Platform-Server.git
+cd Crowdfunding-Platform-Server
+npm install
+```
 
-### 2. Authorization Middlewares (`/middleware`)
-* `authMiddleware`: Verifies and extracts JWT payload from standard Authorization headers.
-* `supporterOnly`: Restricts endpoints (like credit purchases) to supporters.
-* `creatorOnly`: Restricts endpoints (like withdrawal requests) to creators.
+### 2. Run the Server
+Start the API backend with hot reloading:
+```bash
+npm run dev
+```
+The server defaults to port `5001` (based on environment config) and logs connection status to MongoDB.
 
-### 3. API Routes Endpoints (`/routes`)
-* `/api/auth`: Handles mock demo authentication.
-* `/api/campaigns`: Manages top funded and active explore campaigns.
-* `/api/creator`: Handles creator withdrawals and contribution approval reviews.
-* `/api/supporter`: Manages supporter contributions logs.
-* `/api/payments`: Initiates Stripe Checkout sessions, handles verification fallbacks, logs payment histories, and processes Stripe Webhooks.
-
-## Getting Started
-
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-2. **Configure Environment:**
-   Copy `.env.example` to `.env` and fill in the required MongoDB URIs and Stripe credentials.
-
-3. **Start the API Server:**
-   ```bash
-   npm run dev
-   ```
-   The server will start listening on port `5000` (default) with automatic hot-reloads on file changes.
-
-4. **Stripe Webhook forwarding (optional for local testing):**
-   ```bash
-   stripe listen --forward-to localhost:5000/api/payments/webhook
-   ```
+### 3. Stripe Webhook Testing (Local Development)
+To forward Stripe events to the local webhook endpoint:
+```bash
+stripe listen --forward-to localhost:5001/api/payments/webhook
+```
+Copy the webhook signing secret (`whsec_...`) printed in the terminal, add it to your `.env` configuration, and restart the server.
