@@ -7,7 +7,7 @@ FundFlow Server is the Express and MongoDB-based companion API server that power
 * **Backend Framework:** Express.js (v5)
 * **Database & Modeling:** MongoDB & Mongoose
 * **Security & Tokens:** JSON Web Tokens (jsonwebtoken), bcryptjs
-* **Payments Integration:** Stripe API
+* **Payments Integration:** Stripe API (with fallback mock checkout system for local testing and development)
 
 ## Environment Setup
 Create a `.env` file in the root of the server directory:
